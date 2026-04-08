@@ -535,6 +535,7 @@
                     <div class="status-indicator"></div>
                     <i class="ri-wifi-line"></i>
                     <input type="text" id="ps4-ip" placeholder="PS4 IP Address" autocomplete="off">
+                    <button class="rd-help-btn" id="ps4-check-btn" onclick="manualCheckPS4()" tabindex="-1" title="Check connection"><i class="ri-refresh-line"></i></button>
                 </div>
             </div>
         </nav>
@@ -655,11 +656,28 @@
         if (!token) { setRdBoxState('idle'); return; }
         setRdBoxState('idle');
         try {
-            const res = await fetch('https://clinquant-queijadas-57cd07.netlify.app/api/rd/user?auth_token=' + encodeURIComponent(token));
+            var res;
+            if (location.protocol === 'http:') {
+                res = await fetch('https://api.real-debrid.com/rest/1.0/user', {
+                    headers: { 'Authorization': 'Bearer ' + token },
+                    mode: 'cors'
+                });
+            } else {
+                res = await fetch('https://clinquant-queijadas-57cd07.netlify.app/api/rd/user?auth_token=' + encodeURIComponent(token));
+            }
             setRdBoxState(res.ok ? 'valid' : 'invalid');
         } catch {
             setRdBoxState('idle');
         }
+    };
+
+    window.manualCheckPS4 = function () {
+        var ip = document.getElementById('ps4-ip').value.trim();
+        if (!ip) return;
+        localStorage.setItem('ps4-last-ip', ip);
+        clearTimeout(window._connTimeout);
+        clearInterval(window._heartbeat);
+        if (typeof startHeartbeat === 'function') startHeartbeat(ip);
     };
 
     function openFeaturesSection() {
