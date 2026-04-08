@@ -1,0 +1,1369 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="vaporwave">
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>PS4 Core | Premium Library</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0d0d18">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="PS4 Core">
+</head>
+<body>
+
+    <div id="loader">
+        <div class="spinner">
+            <i class="ri-playstation-fill"></i>
+        </div>
+        <div class="loading-bar"></div>
+    </div>
+
+    <!-- ── FAQ Modal ────────────────────────────────────────────────────── -->
+    <div id="faq-modal" class="modal-overlay" style="display:none;" onclick="if(event.target===this)closeFaqModal()">
+        <div class="themes-modal-content faq-modal-content">
+            <header>
+                <div class="modal-header-left">
+                    <i class="ri-question-answer-line" style="color:var(--accent-color);font-size:1.3rem;"></i>
+                    <h2>Help &amp; FAQ</h2>
+                </div>
+                <button class="modal-close-btn" onclick="closeFaqModal()"><i class="ri-close-line"></i></button>
+            </header>
+            <div class="themes-container modal-scrollable faq-body">
+
+                <div class="faq-group">
+                    <h3 class="faq-group-title"><i class="ri-playstation-line"></i> PS4 &amp; Setup</h3>
+
+                    <div class="faq-item">
+                        <button class="faq-q" onclick="toggleFaq(this)">
+                            Do I need a jailbroken PS4?
+                            <i class="ri-add-line"></i>
+                        </button>
+                        <div class="faq-a">Yes. PS4 Core works with jailbroken consoles running <strong>HEN, GoldHEN</strong>, or any equivalent homebrew enabler. The Remote Package Installer app must be available on your PS4 home screen.</div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-q" onclick="toggleFaq(this)">
+                            What is Remote Package Installer?
+                            <i class="ri-add-line"></i>
+                        </button>
+                        <div class="faq-a">Remote Package Installer (RPI) is a homebrew app that runs on your PS4 and listens for <strong>.pkg</strong> install requests over your local network. Open it from your PS4 home screen before sending any installs from this site.</div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-q" onclick="toggleFaq(this)">
+                            How do I find my PS4's IP address?
+                            <i class="ri-add-line"></i>
+                        </button>
+                        <div class="faq-a">On your PS4 go to <strong>Settings → Network → View Connection Status</strong>. The IP address is listed there. Enter it in the <strong>PS4 IP Address</strong> box in the top bar.</div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-q" onclick="toggleFaq(this)">
+                            Why isn't my PS4 being detected?
+                            <i class="ri-add-line"></i>
+                        </button>
+                        <div class="faq-a">Make sure both your PC and PS4 are on the <strong>same Wi-Fi network</strong> and that Remote Package Installer is open on the console. Enter your PS4's IP address in the <strong>PS4 IP Address</strong> box in the top bar.</div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-q" onclick="toggleFaq(this)">
+                            Can I track install progress?
+                            <i class="ri-add-line"></i>
+                        </button>
+                        <div class="faq-a">Yes. Once a PS4 is connected, a <strong>Downloads panel</strong> appears in the bottom-right corner whenever an install is in progress. It shows live progress bars, download size, and status for each task, and fires a notification when installs complete.</div>
+                    </div>
+                </div>
+
+                <div class="faq-group">
+                    <h3 class="faq-group-title"><i class="ri-cloud-line"></i> Real-Debrid</h3>
+
+                    <div class="faq-item">
+                        <button class="faq-q" onclick="toggleFaq(this)">
+                            What is Real-Debrid?
+                            <i class="ri-add-line"></i>
+                        </button>
+                        <div class="faq-a">Real-Debrid is a premium link unrestricted service that converts slow or limited file-host links into fast, direct download URLs. It is required to access the full game library on this site.</div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-q" onclick="toggleFaq(this)">
+                            How do I get a Real-Debrid API token?
+                            <i class="ri-add-line"></i>
+                        </button>
+                        <div class="faq-a">Log in to your Real-Debrid account and visit <strong>real-debrid.com/apitoken</strong>. Copy the token and paste it into the <strong>RD box</strong> in the top bar, then press Enter. The box turns green when validated.</div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-q" onclick="toggleFaq(this)">
+                            Why are download links not working?
+                            <i class="ri-add-line"></i>
+                        </button>
+                        <div class="faq-a">Ensure your Real-Debrid token is valid (green RD box). If a specific link fails it may have expired on the host — try another link from the list in the game's detail modal.</div>
+                    </div>
+                </div>
+
+                <div class="faq-group">
+                    <h3 class="faq-group-title"><i class="ri-layout-grid-line"></i> Library &amp; Features</h3>
+
+                    <div class="faq-item">
+                        <button class="faq-q" onclick="toggleFaq(this)">
+                            How do Favourites and Installed work?
+                            <i class="ri-add-line"></i>
+                        </button>
+                        <div class="faq-a">Hover over any game card to reveal the <strong>heart</strong> (favourite) and <strong>circle-check</strong> (installed) buttons. Your selections are saved to your browser's local storage and can be filtered using the <strong>Library</strong> pills in the filter bar.</div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-q" onclick="toggleFaq(this)">
+                            Can I use PS4 Core on mobile?
+                            <i class="ri-add-line"></i>
+                        </button>
+                        <div class="faq-a">Yes, the interface is fully responsive. However, installing to PS4 still requires the server to be running on a device connected to the same network as your console (typically a PC or laptop).</div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-q" onclick="toggleFaq(this)">
+                            Is any of my data sent to a server?
+                            <i class="ri-add-line"></i>
+                        </button>
+                        <div class="faq-a">No. Your Real-Debrid token, PS4 IP, favourites, and installed list are all stored only in your <strong>browser's local storage</strong>. The only outbound requests are to Real-Debrid's API (to resolve links) and to your PS4 on your local network.</div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-q" onclick="toggleFaq(this)">
+                            How do I see the setup guide again?
+                            <i class="ri-add-line"></i>
+                        </button>
+                        <div class="faq-a">Open your browser's developer tools, go to <strong>Application → Local Storage</strong>, and delete the <strong>ps4-onboarded</strong> key. Refresh the page and the setup guide will reappear.</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- ── Onboarding Modal ─────────────────────────────────────────────── -->
+    <div id="onboarding-overlay" class="onboarding-overlay">
+        <div class="onboarding-modal">
+
+            <!-- Step 1: Welcome -->
+            <div class="ob-step active" data-step="1">
+                <div class="ob-icon-wrap ob-accent">
+                    <i class="ri-playstation-fill"></i>
+                </div>
+                <h2 class="ob-title">Welcome to PS4 Core</h2>
+                <p class="ob-desc">Your personal PS4 game library manager. Browse thousands of titles and install them directly to your console over your local network — no USB, no hassle.</p>
+                <ul class="ob-features">
+                    <li><i class="ri-search-line"></i> Browse &amp; filter a full game library</li>
+                    <li><i class="ri-download-cloud-line"></i> One-tap install via Remote Package Installer</li>
+                    <li><i class="ri-heart-line"></i> Track favourites &amp; installed games</li>
+                    <li><i class="ri-palette-line"></i> Fully customisable themes</li>
+                </ul>
+            </div>
+
+            <!-- Step 2: Remote Package Installer -->
+            <div class="ob-step" data-step="2">
+                <div class="ob-icon-wrap ob-blue">
+                    <i class="ri-tv-2-line"></i>
+                </div>
+                <h2 class="ob-title">Open Remote Package Installer</h2>
+                <p class="ob-desc">Before you can install games, you need to launch <strong>Remote Package Installer</strong> on your PS4.</p>
+                <ol class="ob-steps-list">
+                    <li>
+                        <span class="ob-step-num">1</span>
+                        <span>Make sure your PS4 is <strong>jailbroken</strong> (HEN / GoldHEN or equivalent)</span>
+                    </li>
+                    <li>
+                        <span class="ob-step-num">2</span>
+                        <span>From the PS4 home screen, open the <strong>Remote Package Installer</strong> app</span>
+                    </li>
+                    <li>
+                        <span class="ob-step-num">3</span>
+                        <span>The app will display <em>"Waiting for packages…"</em> — this means it's ready</span>
+                    </li>
+                    <li>
+                        <span class="ob-step-num">4</span>
+                        <span>Keep it open while you browse and install from this page</span>
+                    </li>
+                </ol>
+                <div class="ob-tip"><i class="ri-information-line"></i> Both your PC and PS4 must be on the <strong>same Wi-Fi network</strong>.</div>
+            </div>
+
+            <!-- Step 3: Connect Console -->
+            <div class="ob-step" data-step="3">
+                <div class="ob-icon-wrap ob-green">
+                    <i class="ri-radar-line"></i>
+                </div>
+                <h2 class="ob-title">Connect Your Console</h2>
+                <p class="ob-desc">Enter your PS4's IP address to connect. The status indicator will turn green when your console is reachable.</p>
+                <ol class="ob-steps-list">
+                    <li>
+                        <span class="ob-step-num">1</span>
+                        <span>On your PS4 go to <strong>Settings &rarr; Network &rarr; View Connection Status</strong> to find the IP</span>
+                    </li>
+                    <li>
+                        <span class="ob-step-num">2</span>
+                        <span>Type the IP into the <strong>PS4 IP Address</strong> box in the top bar</span>
+                    </li>
+                    <li>
+                        <span class="ob-step-num">3</span>
+                        <span>The box turns <strong>green</strong> when your console is connected and RPI is open</span>
+                    </li>
+                </ol>
+                <div class="ob-tip"><i class="ri-information-line"></i> Your PS4's IP is saved automatically &mdash; you only need to enter it once.</div>
+            </div>
+
+            <!-- Step 4: Real-Debrid -->
+            <div class="ob-step" data-step="4">
+                <div class="ob-icon-wrap ob-orange">
+                    <i class="ri-cloud-line"></i>
+                </div>
+                <h2 class="ob-title">Link Real-Debrid</h2>
+                <p class="ob-desc">Real-Debrid unlocks fast, unrestricted download links for your games.</p>
+                <ol class="ob-steps-list">
+                    <li>
+                        <span class="ob-step-num">1</span>
+                        <span>Visit <strong>real-debrid.com/apitoken</strong> and copy your API token</span>
+                    </li>
+                    <li>
+                        <span class="ob-step-num">2</span>
+                        <span>Paste it into the <strong>RD box</strong> in the top bar and press Enter</span>
+                    </li>
+                    <li>
+                        <span class="ob-step-num">3</span>
+                        <span>The box turns green when validated — you're linked!</span>
+                    </li>
+                </ol>
+                <div class="ob-tip"><i class="ri-lock-line"></i> Your token is stored only in your browser's local storage — never sent to any server.</div>
+            </div>
+
+            <!-- Step 5: Ready -->
+            <div class="ob-step" data-step="5">
+                <div class="ob-icon-wrap ob-accent">
+                    <i class="ri-checkbox-circle-fill"></i>
+                </div>
+                <h2 class="ob-title">You're All Set!</h2>
+                <p class="ob-desc">Everything is ready. Here's how to install your first game:</p>
+                <ol class="ob-steps-list">
+                    <li>
+                        <span class="ob-step-num">1</span>
+                        <span>Browse the library and click <strong>View Details</strong> on any game</span>
+                    </li>
+                    <li>
+                        <span class="ob-step-num">2</span>
+                        <span>Choose a download link and click <strong>Send to PS4</strong></span>
+                    </li>
+                    <li>
+                        <span class="ob-step-num">3</span>
+                        <span>Watch the <strong>Downloads panel</strong> (bottom-right) for live install progress</span>
+                    </li>
+                </ol>
+                <div class="ob-tip ob-tip-success"><i class="ri-star-fill"></i> Use the <strong>Favourites</strong> and <strong>Installed</strong> filters to keep your library organised.</div>
+            </div>
+
+            <!-- Footer nav -->
+            <div class="ob-footer">
+                <div class="ob-dots" id="ob-dots"></div>
+                <div class="ob-nav">
+                    <button class="ob-btn ob-btn-ghost" id="ob-skip" onclick="_obSkip()">Skip</button>
+                    <button class="ob-btn ob-btn-ghost" id="ob-prev" onclick="_obPrev()" style="display:none"><i class="ri-arrow-left-line"></i> Back</button>
+                    <button class="ob-btn ob-btn-primary" id="ob-next" onclick="_obNext()">Next <i class="ri-arrow-right-line"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── Changelog Modal ─────────────────────────────────────────────── -->
+    <div id="changelog-modal" class="modal-overlay" style="display:none;" onclick="if(event.target===this)closeChangelog()">
+        <div class="themes-modal-content faq-modal-content">
+            <header>
+                <div class="modal-header-left">
+                    <i class="ri-git-commit-line" style="color:var(--accent-color);font-size:1.3rem;"></i>
+                    <h2>What's New</h2>
+                </div>
+                <button class="modal-close-btn" onclick="closeChangelog()"><i class="ri-close-line"></i></button>
+            </header>
+            <div class="themes-container modal-scrollable changelog-body" id="changelog-body"></div>
+        </div>
+    </div>
+
+    <!-- ── Stats Modal ───────────────────────────────────────────────────── -->
+    <div id="stats-modal" class="modal-overlay" style="display:none;" onclick="if(event.target===this)closeStats()">
+        <div class="themes-modal-content faq-modal-content">
+            <header>
+                <div class="modal-header-left">
+                    <i class="ri-bar-chart-2-line" style="color:var(--accent-color);font-size:1.3rem;"></i>
+                    <h2>Library Stats</h2>
+                </div>
+                <button class="modal-close-btn" onclick="closeStats()"><i class="ri-close-line"></i></button>
+            </header>
+            <div class="themes-container modal-scrollable" id="stats-body" style="padding:20px 24px;"></div>
+        </div>
+    </div>
+
+    <!-- ── Note Modal ────────────────────────────────────────────────────── -->
+    <div id="note-modal" class="modal-overlay" style="display:none;" onclick="if(event.target===this)closeNoteModal()">
+        <div class="themes-modal-content note-modal-content">
+            <header>
+                <div class="modal-header-left">
+                    <i class="ri-sticky-note-line" style="color:var(--accent-color);font-size:1.3rem;"></i>
+                    <h2 id="note-modal-title">Note</h2>
+                </div>
+                <button class="modal-close-btn" onclick="closeNoteModal()"><i class="ri-close-line"></i></button>
+            </header>
+            <div style="padding:16px 20px;">
+                <textarea id="note-textarea" class="note-textarea" placeholder="Write a note about this game…"></textarea>
+                <div class="note-actions">
+                    <button class="note-save-btn" onclick="saveNote()"><i class="ri-save-line"></i> Save Note</button>
+                    <button class="note-delete-btn" onclick="deleteNote()"><i class="ri-delete-bin-line"></i> Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── Export / Import Modal ─────────────────────────────────────────── -->
+    <div id="exim-modal" class="modal-overlay" style="display:none;" onclick="if(event.target===this)closeExim()">
+        <div class="themes-modal-content faq-modal-content">
+            <header>
+                <div class="modal-header-left">
+                    <i class="ri-database-2-line"></i>
+                    <h2>Backup &amp; Restore</h2>
+                </div>
+                <button class="modal-close-btn" onclick="closeExim()"><i class="ri-close-line"></i></button>
+            </header>
+            <div style="padding:20px 24px;display:flex;flex-direction:column;gap:16px;">
+                <p style="color:rgba(255,255,255,0.5);font-size:0.85rem;margin:0;">Back up your favourites, installed list and notes as JSON — restore anytime.</p>
+                <div class="exim-row">
+                    <div class="exim-card">
+                        <i class="ri-download-2-line"></i>
+                        <div>
+                            <div class="exim-card-title">Export Backup</div>
+                            <div class="exim-card-desc">Download your library data as a JSON file</div>
+                        </div>
+                        <button class="exim-btn exim-export-btn" onclick="exportLibrary()">Export</button>
+                    </div>
+                    <div class="exim-card">
+                        <i class="ri-upload-2-line"></i>
+                        <div>
+                            <div class="exim-card-title">Import Backup</div>
+                            <div class="exim-card-desc">Restore a previously exported JSON file</div>
+                        </div>
+                        <button class="exim-btn exim-import-btn" onclick="document.getElementById('exim-file-input').click()">Import</button>
+                        <input type="file" id="exim-file-input" accept=".json" style="display:none" onchange="importLibrary(this)">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── Themes Modal ────────────────────────────────────────────────────── -->
+    <div id="themes-modal" class="modal-overlay" style="display:none;" onclick="if(event.target===this)closeThemesModal()">
+        <div class="themes-modal-content" style="width:780px;max-width:96vw;max-height:88vh;overflow-y:auto;">
+            <header>
+                <div class="modal-header-left">
+                    <i class="ri-palette-line"></i>
+                    <div>
+                        <div class="modal-kicker">Personalise</div>
+                        <h2 class="modal-title">Theme Studio</h2>
+                    </div>
+                </div>
+                <button class="modal-close-btn flat" onclick="closeThemesModal()"><i class="ri-close-line"></i></button>
+            </header>
+            <div style="padding:0 24px 28px;">
+                <h3 class="themes-section-title">Preset Themes</h3>
+                <div id="presets-grid" class="themes-grid"></div>
+
+                <h3 class="themes-section-title" style="margin-top:24px;">Custom Themes</h3>
+                <div id="custom-grid" class="themes-grid"></div>
+
+                <h3 class="themes-section-title" style="margin-top:24px;">Create Theme</h3>
+                <div class="custom-theme-form">
+                    <input id="custom-name" type="text" class="theme-name-input" placeholder="Theme name…">
+                    <div class="theme-color-row">
+                        <label class="theme-color-label">Accent<input id="custom-accent" type="text" class="theme-color-input" value="#9d50ff" data-label="Accent Color"></label>
+                        <label class="theme-color-label">Background<input id="custom-bg" type="text" class="theme-color-input" value="#0f0a1e" data-label="Background"></label>
+                        <label class="theme-color-label">Sidebar<input id="custom-sidebar" type="text" class="theme-color-input" value="#160e2c" data-label="Sidebar"></label>
+                        <label class="theme-color-label">Card<input id="custom-card" type="text" class="theme-color-input" value="#1d143a" data-label="Card"></label>
+                        <label class="theme-color-label">Text<input id="custom-text" type="text" class="theme-color-input" value="#c9b5d9" data-label="Text"></label>
+                        <label class="theme-color-label">Glow<input id="custom-glow" type="text" class="theme-color-input" value="#b366ff" data-label="Glow"></label>
+                    </div>
+                    <button class="create-btn" onclick="saveCustomTheme()"><i class="ri-add-line"></i> Create Theme</button>
+                </div>
+
+                <div class="themes-io-row" style="margin-top:20px;display:flex;gap:10px;flex-wrap:wrap;">
+                    <button class="theme-io-btn" onclick="exportThemes()"><i class="ri-upload-2-line"></i> Export Themes</button>
+                    <label class="theme-io-btn" style="cursor:pointer;"><i class="ri-download-2-line"></i> Import Themes<input type="file" accept=".json" style="display:none" onchange="importThemes(event)"></label>
+                    <button class="theme-io-btn" onclick="openImportCodeModal()"><i class="ri-key-line"></i> Import by Code</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── Edit Theme Modal ─────────────────────────────────────────────────── -->
+    <div id="edit-theme-modal" class="modal-overlay" style="display:none;" onclick="if(event.target===this)closeEditThemeModal()">
+        <div class="themes-modal-content" style="width:520px;max-width:96vw;">
+            <header>
+                <div class="modal-header-left">
+                    <i class="ri-pencil-line"></i>
+                    <div>
+                        <div class="modal-kicker">Theme Studio</div>
+                        <h2 id="edit-theme-title" class="modal-title">Edit Theme</h2>
+                    </div>
+                </div>
+                <button class="modal-close-btn flat" onclick="closeEditThemeModal()"><i class="ri-close-line"></i></button>
+            </header>
+            <div class="custom-theme-form" style="padding:0 24px 24px;">
+                <input id="edit-custom-name" type="text" class="theme-name-input" placeholder="Theme name…">
+                <div class="theme-color-row">
+                    <label class="theme-color-label">Accent<input id="edit-custom-accent" type="text" class="theme-color-input" data-label="Accent Color"></label>
+                    <label class="theme-color-label">Background<input id="edit-custom-bg" type="text" class="theme-color-input" data-label="Background"></label>
+                    <label class="theme-color-label">Sidebar<input id="edit-custom-sidebar" type="text" class="theme-color-input" data-label="Sidebar"></label>
+                    <label class="theme-color-label">Card<input id="edit-custom-card" type="text" class="theme-color-input" data-label="Card"></label>
+                    <label class="theme-color-label">Text<input id="edit-custom-text" type="text" class="theme-color-input" data-label="Text"></label>
+                    <label class="theme-color-label">Glow<input id="edit-custom-glow" type="text" class="theme-color-input" data-label="Glow"></label>
+                </div>
+                <div style="display:flex;gap:10px;margin-top:16px;">
+                    <button class="create-btn" onclick="updateCustomTheme()"><i class="ri-save-line"></i> Save Changes</button>
+                    <button class="create-btn" style="background:rgba(255,255,255,0.1);" onclick="closeEditThemeModal()">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── Import Theme Code Modal ──────────────────────────────────────────── -->
+    <div id="import-code-modal" class="modal-overlay" style="display:none;" onclick="if(event.target===this)closeImportCodeModal()">
+        <div class="themes-modal-content" style="width:460px;max-width:96vw;">
+            <header>
+                <div class="modal-header-left">
+                    <i class="ri-key-line"></i>
+                    <div>
+                        <div class="modal-kicker">Theme Studio</div>
+                        <h2 class="modal-title">Import Theme Code</h2>
+                    </div>
+                </div>
+                <button class="modal-close-btn flat" onclick="closeImportCodeModal()"><i class="ri-close-line"></i></button>
+            </header>
+            <div style="padding:0 24px 24px;">
+                <p style="color:var(--text-dim);font-size:0.9rem;margin:0 0 12px;">Paste a theme share code to import it.</p>
+                <textarea id="import-code-input" class="note-textarea" rows="4" placeholder="Paste theme code here…" style="width:100%;box-sizing:border-box;"></textarea>
+                <div style="display:flex;gap:10px;margin-top:14px;">
+                    <button class="create-btn" onclick="importThemeCode()"><i class="ri-import-line"></i> Import</button>
+                    <button class="create-btn" style="background:rgba(255,255,255,0.1);" onclick="closeImportCodeModal()">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="download-modal" class="modal-overlay" style="display: none;">
+        <div class="themes-modal-content game-detail-modal">
+            <div class="game-detail-compact">
+                <div class="compact-art">
+                    <img id="modal-game-image" src="" alt="" referrerpolicy="no-referrer">
+                    <button class="modal-close-btn" onclick="closeModal()"><i class="ri-close-line"></i></button>
+                    <div class="compact-art-overlay">
+                        <div class="compact-art-badges">
+                            <span id="modal-game-genre" class="compact-genre"></span>
+                            <span id="modal-game-platform" class="compact-platform-badge"></span>
+                        </div>
+                        <p id="modal-art-title" class="compact-art-title"></p>
+                        <div class="compact-art-meta">
+                            <span id="modal-game-size" class="compact-size"></span>
+                            <span id="modal-game-update" class="compact-update"></span>
+                        </div>
+                        <div class="compact-art-actions">
+                            <button class="modal-note-btn" id="modal-note-btn" onclick="openNoteModal(window._currentModalIndex)" title="Add Note"><i class="ri-sticky-note-line"></i> Note</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="compact-downloads">
+                <h4><i class="ri-download-cloud-line"></i> Downloads</h4>
+                <div id="link-container" class="link-list"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ... -->
+
+    <div class="container" id="main-ui" style="display: none;">
+        <nav class="topbar">
+            <div class="logo"><i class="ri-playstation-fill"></i><span class="version-badge" onclick="openChangelog()" title="What's New">v1.5</span></div>
+
+            <div class="search-bar-wrap">
+                <div class="search-bar">
+                    <i class="ri-search-line"></i>
+                    <input type="text" id="gameSearch" placeholder="Search thousands of titles..." autocomplete="off">
+                </div>
+                <div id="search-history-drop" class="search-history-drop" style="display:none"></div>
+            </div>
+
+            <button class="theme-studio-btn" onclick="openThemesModal()" title="Theme Studio">
+                <i class="ri-palette-line"></i>
+                <span>Themes</span>
+            </button>
+
+            <button class="theme-studio-btn faq-topbar-btn" onclick="openFaqModal()" title="Help &amp; FAQ">
+                <i class="ri-question-line"></i>
+                <span>Help</span>
+            </button>
+
+            <button class="theme-studio-btn" onclick="openStats()" title="Library Stats">
+                <i class="ri-bar-chart-2-line"></i>
+                <span>Stats</span>
+            </button>
+
+            <button class="theme-studio-btn" onclick="surpriseMe()" title="Random Game">
+                <i class="ri-shuffle-line"></i>
+                <span>Random</span>
+            </button>
+
+            <button class="theme-studio-btn" onclick="openFeaturesSection()" title="Features" id="features-topbar-btn">
+                <i class="ri-star-line"></i>
+                <span>Features</span>
+            </button>
+
+            <div class="connection-boxes">
+                <div class="connection-box" id="rd-box">
+                    <i class="ri-key-2-line"></i>
+                    <input type="text" id="rd-token" placeholder="RD API Token" autocomplete="off" data-form-type="other">
+                    <button class="rd-help-btn" onclick="openRdHelpModal()" tabindex="-1"><i class="ri-question-line"></i></button>
+                </div>
+                <div class="connection-box" id="ps4-box">
+                    <div class="status-indicator"></div>
+                    <i class="ri-wifi-line"></i>
+                    <input type="text" id="ps4-ip" placeholder="PS4 IP Address" autocomplete="off">
+                </div>
+            </div>
+        </nav>
+
+        <main class="content">
+            <!-- ── Features Section ─────────────────────────────────── -->
+            <section id="features-section" style="display:none;">
+                <div class="feat-section-header">
+                    <div class="feat-section-title"><i class="ri-star-fill"></i><span>Everything PS4 Core can do</span></div>
+                    <button class="feat-dismiss-btn" onclick="closeFeaturesSection()" title="Dismiss"><i class="ri-close-line"></i></button>
+                </div>
+                <div class="feat-grid">
+                    <div class="feat-card"><i class="ri-apps-2-line"></i><div class="feat-body"><span class="feat-title">Browse Library</span><span class="feat-desc">Thousands of PS4, PS2 &amp; PS1 titles with filters, genre, size and instant search</span></div></div>
+                    <div class="feat-card"><i class="ri-download-cloud-line"></i><div class="feat-body"><span class="feat-title">Direct Install</span><span class="feat-desc">Unrestrict links via Real-Debrid and push packages straight to your PS4</span></div></div>
+                    <div class="feat-card"><i class="ri-list-ordered"></i><div class="feat-body"><span class="feat-title">Install Queue</span><span class="feat-desc">Build a batch queue and send multiple titles to your PS4 one by one</span></div></div>
+                    <div class="feat-card"><i class="ri-signal-wifi-line"></i><div class="feat-body"><span class="feat-title">Live Progress</span><span class="feat-desc">Real-time progress panel with per-task bars, speed &amp; ETA after every install</span></div></div>
+                    <div class="feat-card"><i class="ri-palette-line"></i><div class="feat-body"><span class="feat-title">Theme Studio</span><span class="feat-desc">Fully customisable themes — pick an accent colour or build your own preset</span></div></div>
+                    <div class="feat-card"><i class="ri-sticky-note-line"></i><div class="feat-body"><span class="feat-title">Game Notes</span><span class="feat-desc">Write and save personal notes for any title; note badge shown on the card</span></div></div>
+                    <div class="feat-card"><i class="ri-heart-line"></i><div class="feat-body"><span class="feat-title">Favourites &amp; Installed</span><span class="feat-desc">Heart your favourites, mark games as installed, and filter your library</span></div></div>
+                    <div class="feat-card"><i class="ri-shuffle-line"></i><div class="feat-body"><span class="feat-title">Surprise Me</span><span class="feat-desc">Instantly open a random game from your current filter selection (press R)</span></div></div>
+                    <div class="feat-card"><i class="ri-database-2-line"></i><div class="feat-body"><span class="feat-title">Export &amp; Import</span><span class="feat-desc">Backup your favourites, installed list and notes as JSON — restore anytime</span></div></div>
+                    <div class="feat-card"><i class="ri-smartphone-line"></i><div class="feat-body"><span class="feat-title">Install as App</span><span class="feat-desc">Works as a PWA — add PS4 Core to your home screen on any device</span></div></div>
+                </div>
+            </section>
+
+            <section class="filter-bar">
+                <div class="filter-group">
+                    <span class="filter-label"><i class="ri-gamepad-line"></i> Platform</span>
+                    <div class="filter-pills" id="platform-filters">
+                        <button class="filter-pill active" data-platform="all">All</button>
+                        <button class="filter-pill" data-platform="PS1">PS1</button>
+                        <button class="filter-pill" data-platform="PS2">PS2</button>
+                        <button class="filter-pill" data-platform="PS4">PS4</button>
+                    </div>
+                </div>
+                <div class="filter-group">
+                    <span class="filter-label"><i class="ri-price-tag-3-line"></i> Genre</span>
+                    <select class="filter-select" id="genre-filter">
+                        <option value="all">All Genres</option>
+                        <option value="action">Action</option>
+                        <option value="adventure">Adventure</option>
+                        <option value="fighting">Fighting</option>
+                        <option value="fps">FPS / Shooter</option>
+                        <option value="horror">Horror</option>
+                        <option value="jrpg">JRPG</option>
+                        <option value="open world">Open World</option>
+                        <option value="platformer">Platformer</option>
+                        <option value="racing">Racing</option>
+                        <option value="rpg">RPG</option>
+                        <option value="sports">Sports</option>
+                        <option value="strategy">Strategy</option>
+                        <option value="simulation">Simulation</option>
+                        <option value="puzzle">Puzzle</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <span class="filter-label"><i class="ri-hard-drive-2-line"></i> Size</span>
+                    <select class="filter-select" id="size-filter">
+                        <option value="all">Any Size</option>
+                        <option value="small">Under 5 GB</option>
+                        <option value="medium">5 – 20 GB</option>
+                        <option value="large">Over 20 GB</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <span class="filter-label"><i class="ri-sort-desc"></i> Sort</span>
+                    <select class="filter-select" id="sort-filter">
+                        <option value="default">Default</option>
+                        <option value="az">A → Z</option>
+                        <option value="za">Z → A</option>
+                        <option value="size-asc">Size: Low → High</option>
+                        <option value="size-desc">Size: High → Low</option>
+                    </select>
+                </div>
+                <div class="filter-group filter-pagination">
+                    <button id="page-prev" class="page-btn" disabled>&#8249;</button>
+                    <span id="page-indicator">1 / 1</span>
+                    <button id="page-next" class="page-btn">&#8250;</button>
+                </div>
+                <div class="filter-group">
+                    <span class="filter-label"><i class="ri-bookmark-line"></i> Library</span>
+                    <div class="filter-pills" id="library-filters">
+                        <button class="filter-pill active" data-library="all">All</button>
+                        <button class="filter-pill" data-library="fav"><i class="ri-heart-line"></i> Favourites</button>
+                        <button class="filter-pill" data-library="installed"><i class="ri-check-circle-line"></i> Installed</button>
+                    </div>
+                </div>
+                <div class="filter-results"><span id="filter-count"></span></div>
+                <div class="filter-group filter-view-toggle">
+                    <button id="view-toggle-btn" class="view-toggle-btn active" onclick="toggleView('grid')" title="Grid view"><i class="ri-layout-grid-line"></i></button>
+                    <button id="view-toggle-list-btn" class="view-toggle-btn" onclick="toggleView('list')" title="List view"><i class="ri-list-check"></i></button>
+                    <button id="select-mode-btn" class="view-toggle-btn" onclick="enterSelectMode()" title="Multi-select"><i class="ri-checkbox-multiple-line"></i></button>
+                    <button class="view-toggle-btn" onclick="openExim()" title="Backup &amp; Restore"><i class="ri-database-2-line"></i></button>
+                </div>
+            </section>
+
+            <section id="recently-viewed-section" style="display:none;">
+                <div class="rv-header">
+                    <i class="ri-history-line"></i> Recently Viewed
+                </div>
+                <div id="recently-viewed-row" class="rv-row"></div>
+            </section>
+
+            <section class="game-section">
+                <div class="grid" id="game-grid"></div>
+            </section>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+    /* Patch validateRdToken - runs after script.js, before DOMContentLoaded.
+       Fixes two issues with the original:
+         1. Uses Authorization: Bearer header (correct OAuth2, no query param)
+         2. Catch only fires on network/CORS errors - shows idle, not invalid,
+            so a real token is never falsely marked red due to connectivity. */
+    window.validateRdToken = async function (token) {
+        if (!token) { setRdBoxState('idle'); return; }
+        setRdBoxState('idle');
+        try {
+            const res = await fetch('https://api.real-debrid.com/rest/1.0/user', {
+                headers: { 'Authorization': 'Bearer ' + token }
+            });
+            setRdBoxState(res.ok ? 'valid' : 'invalid');
+        } catch {
+            setRdBoxState('idle');
+        }
+    };
+
+    function openFeaturesSection() {
+        var s = document.getElementById('features-section');
+        if (!s) return;
+        if (!document.getElementById('feat-backdrop')) {
+            var bd = document.createElement('div');
+            bd.id = 'feat-backdrop';
+            bd.onclick = closeFeaturesSection;
+            document.body.appendChild(bd);
+        }
+        s.style.display = 'block';
+    }
+    function closeFeaturesSection() {
+        var s = document.getElementById('features-section');
+        if (s) s.style.display = 'none';
+        var bd = document.getElementById('feat-backdrop');
+        if (bd) bd.remove();
+    }
+
+    function openFaqModal() {
+        var m = document.getElementById('faq-modal');
+        if (m) m.style.display = 'flex';
+    }
+    function closeFaqModal() {
+        var m = document.getElementById('faq-modal');
+        if (m) m.style.display = 'none';
+    }
+    function toggleFaq(btn) {
+        var item = btn.parentElement;
+        var isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item.open').forEach(function(el) {
+            el.classList.remove('open');
+            var ic = el.querySelector('.faq-q i');
+            if (ic) ic.className = 'ri-add-line';
+        });
+        if (!isOpen) {
+            item.classList.add('open');
+            var ic = btn.querySelector('i');
+            if (ic) ic.className = 'ri-subtract-line';
+        }
+    }
+
+    function showToast(message, type, subtitle) {
+        var container = document.getElementById('toast-container');
+        if (!container) return;
+        var icons = { success: 'ri-checkbox-circle-fill', error: 'ri-close-circle-fill', info: 'ri-information-fill', warning: 'ri-alert-fill' };
+        var iconClass = icons[type] || icons.info;
+        var toast = document.createElement('div');
+        toast.className = 'toast toast-' + (type || 'info');
+        toast.innerHTML = '<div class="toast-bar"></div>' +
+            '<div class="toast-icon"><i class="' + iconClass + '"></i></div>' +
+            '<div class="toast-text">' +
+                '<div class="toast-title">' + message + '</div>' +
+                (subtitle ? '<div class="toast-sub">' + subtitle + '</div>' : '') +
+            '</div>';
+        container.appendChild(toast);
+        requestAnimationFrame(function () {
+            requestAnimationFrame(function () { toast.classList.add('show'); });
+        });
+        setTimeout(function () {
+            toast.classList.remove('show');
+            setTimeout(function () { toast.remove(); }, 400);
+        }, 3500);
+    }
+
+    // ── Card tilt effect ────────────────────────────────────────────────────
+    document.addEventListener('mousemove', function (e) {
+        var card = e.target.closest('.game-card');
+        if (!card || card.classList.contains('game-card-list')) return;
+        var rect = card.getBoundingClientRect();
+        var x = (e.clientX - rect.left) / rect.width  - 0.5;
+        var y = (e.clientY - rect.top)  / rect.height - 0.5;
+        card.style.transform = 'perspective(600px) rotateY(' + (x * 6) + 'deg) rotateX(' + (-y * 6) + 'deg) scale(1.02)';
+    });
+    document.addEventListener('mouseleave', function (e) {
+        var card = e.target.closest && e.target.closest('.game-card');
+        if (card && !card.classList.contains('game-card-list')) card.style.transform = '';
+    }, true);
+    document.addEventListener('mouseover', function (e) {
+        var card = e.target.closest('.game-card');
+        if (!card) {
+            var prev = document.querySelector('.game-card[style]');
+            if (prev && !prev.classList.contains('game-card-list')) prev.style.transform = '';
+            if (prev) prev.style.transform = '';
+        }
+    });
+
+    // ── Scroll-to-top ────────────────────────────────────────────────────────
+    (function () {
+        var btn = document.getElementById('scroll-top-btn');
+        if (!btn) return;
+        window.addEventListener('scroll', function () {
+            btn.classList.toggle('visible', window.scrollY > 300);
+        });
+        btn.addEventListener('click', function () {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    })();
+    </script>
+
+    <!-- ── PS4 Installs Panel ─────────────────────────────────────── -->
+    <div id="installs-panel">
+        <div class="installs-header" onclick="toggleInstallsPanel()">
+            <i class="ri-download-cloud-2-line"></i>
+            <span class="installs-header-title">PS4 Downloads</span>
+            <span class="installs-header-count" id="installs-count"></span>
+            <button class="installs-minimise-btn" id="installs-min-btn" title="Minimise"><i class="ri-subtract-line"></i></button>
+        </div>
+        <div id="installs-body">
+            <div class="installs-empty">No active downloads</div>
+        </div>
+    </div>
+
+    <script>
+    (function () {
+        var _pollTimer   = null;
+        var _prevDone    = {};
+        var _minimised   = false;
+
+        function _fmtBytes(b) {
+            if (!b || b < 0) return '?';
+            if (b >= 1e9) return (b / 1e9).toFixed(2) + ' GB';
+            if (b >= 1e6) return (b / 1e6).toFixed(1) + ' MB';
+            return (b / 1e3).toFixed(0) + ' KB';
+        }
+
+        function _statusClass(s) {
+            if (!s) return 'status-unknown';
+            var u = s.toUpperCase();
+            if (u === 'RUNNING' || u === 'DOWNLOADING') return 'status-running';
+            if (u === 'SUCCESS' || u === 'INSTALLED' || u === 'COMPLETE') return 'status-complete';
+            if (u === 'ERROR' || u === 'FAILED') return 'status-error';
+            return 'status-unknown';
+        }
+
+        function _renderTasks(tasks) {
+            var panel  = document.getElementById('installs-panel');
+            var body   = document.getElementById('installs-body');
+            var count  = document.getElementById('installs-count');
+            if (!panel || !body) return;
+
+            if (!tasks || tasks.length === 0) {
+                panel.classList.remove('visible');
+                return;
+            }
+
+            panel.classList.add('visible');
+            if (count) count.textContent = tasks.length + ' task' + (tasks.length !== 1 ? 's' : '');
+
+            body.innerHTML = tasks.map(function (t) {
+                var pct     = typeof t.progress === 'number' ? Math.min(100, Math.round(t.progress)) : 0;
+                var isDone  = _statusClass(t.status) === 'status-complete';
+                var szDl    = _fmtBytes(t.downloaded_size);
+                var szTotal = _fmtBytes(t.total_size);
+                var scls    = _statusClass(t.status);
+
+                if (isDone && !_prevDone[t.id]) {
+                    _prevDone[t.id] = true;
+                    if (typeof showToast === 'function') {
+                        showToast('\u2713 ' + (t.title_name || 'Install') + ' complete!', 'success');
+                    }
+                }
+
+                return '<div class="install-task' + (isDone ? ' done' : '') + '">' +
+                    '<div class="install-task-title">' + (t.title_name || t.title_id || 'Unknown') + '</div>' +
+                    '<div class="install-task-meta">' +
+                        '<span class="install-task-status ' + scls + '">' + (t.status || 'Unknown') + '</span>' +
+                        '<span>' + (isDone ? szTotal : szDl + ' / ' + szTotal) + '</span>' +
+                    '</div>' +
+                    '<div class="install-progress-track">' +
+                        '<div class="install-progress-bar" style="width:' + pct + '%"></div>' +
+                    '</div>' +
+                '</div>';
+            }).join('');
+        }
+
+        async function _pollTasks() {
+            var ip = (function () {
+                var sel = document.getElementById('ps4-ip');
+                return sel ? sel.value : '';
+            })();
+            if (!ip || window.location.protocol === 'file:') return;
+
+            try {
+                var res  = await fetch(window.location.origin + '/ps4-tasks?ip=' + encodeURIComponent(ip));
+                if (!res.ok) return;
+                var data = await res.json();
+                var tasks = Array.isArray(data) ? data : (Array.isArray(data.tasks) ? data.tasks : []);
+                _renderTasks(tasks);
+            } catch (e) { /* PS4 unreachable — silently skip */ }
+        }
+
+        window.startInstallsPolling = function () {
+            if (_pollTimer) clearInterval(_pollTimer);
+            _pollTasks();
+            _pollTimer = setInterval(_pollTasks, 3000);
+        };
+
+        window.stopInstallsPolling = function () {
+            if (_pollTimer) { clearInterval(_pollTimer); _pollTimer = null; }
+        };
+
+        window.toggleInstallsPanel = function () {
+            var panel = document.getElementById('installs-panel');
+            var btn   = document.getElementById('installs-min-btn');
+            if (!panel) return;
+            _minimised = !_minimised;
+            panel.classList.toggle('minimised', _minimised);
+            if (btn) btn.querySelector('i').className = _minimised ? 'ri-add-line' : 'ri-subtract-line';
+        };
+
+        // Start polling once PS4 IP is selected
+        document.addEventListener('DOMContentLoaded', function () {
+            var sel = document.getElementById('ps4-ip');
+            if (sel) {
+                sel.addEventListener('change', function () {
+                    if (this.value) startInstallsPolling(); else stopInstallsPolling();
+                });
+                if (sel.value) startInstallsPolling();
+            }
+            // Also kick off if saved IP exists
+            var saved = localStorage.getItem('ps4-last-ip');
+            if (saved) startInstallsPolling();
+        });
+    })();
+    </script>
+
+    <!-- ── Multi-select Toolbar ─────────────────────────────────────── -->
+    <div id="select-bar" style="display:none">
+        <span id="select-bar-count">0 selected</span>
+        <button class="select-bar-btn select-bar-queue" onclick="batchAddToQueue()"><i class="ri-list-ordered"></i> Add All to Queue</button>
+        <button class="select-bar-btn select-bar-fav" onclick="batchFavourite()"><i class="ri-heart-line"></i> Favourite All</button>
+        <button class="select-bar-btn select-bar-cancel" onclick="exitSelectMode()"><i class="ri-close-line"></i> Cancel</button>
+    </div>
+
+    <!-- ── Download Queue Panel ────────────────────────────────────── -->
+    <div id="queue-panel">
+        <div class="queue-header" onclick="toggleQueuePanel()">
+            <i class="ri-list-ordered"></i>
+            <span class="queue-header-title">Install Queue</span>
+            <span class="queue-header-count" id="queue-count"></span>
+            <button class="installs-minimise-btn" id="queue-min-btn" title="Minimise"><i class="ri-subtract-line"></i></button>
+        </div>
+        <div id="queue-body"></div>
+        <div id="queue-footer">
+            <button class="queue-action-btn queue-send-btn" onclick="queueSendNext()"><i class="ri-send-plane-line"></i> Send Next</button>
+            <button class="queue-action-btn queue-clear-btn" onclick="queueClear()"><i class="ri-delete-bin-line"></i> Clear</button>
+        </div>
+    </div>
+
+    <!-- ── PWA Install Banner ────────────────────────────────────────── -->
+    <div id="pwa-banner" style="display:none">
+        <i class="ri-smartphone-line"></i>
+        <span>Install PS4 Core as an app</span>
+        <button id="pwa-install-btn" onclick="pwaTriggerInstall()">Install</button>
+        <button class="pwa-dismiss" onclick="pwaDismiss()"><i class="ri-close-line"></i></button>
+    </div>
+
+    <button id="scroll-top-btn" aria-label="Scroll to top"><i class="ri-arrow-up-line"></i></button>
+    <div id="toast-container"></div>
+
+    <script>
+    /* ── Changelog ──────────────────────────────────────────────────────── */
+    (function () {
+        var CL_VERSION = '1.5';
+        var ENTRIES = [
+            { v: '1.5', date: 'Apr 2026', title: 'Progress, Notes & Polish', items: [
+                { t: 'new', s: 'Install Progress Panel \u2014 live progress bars, speed & ETA after every install' },
+                { t: 'new', s: 'Install Complete notifications \u2014 toast + browser alert when a game finishes' },
+                { t: 'new', s: 'Console Picker modal \u2014 dedicated UI to select or manually enter your PS4 IP' },
+                { t: 'new', s: 'Game Notes \u2014 write & save personal notes per game; note badge shown on cards' },
+                { t: 'new', s: 'Stats Dashboard \u2014 library totals with platform & genre breakdowns' },
+                { t: 'new', s: 'Multi-select mode \u2014 select multiple games to batch-queue or favourite' },
+                { t: 'new', s: 'List / Grid view toggle \u2014 compact list view or full card grid' },
+                { t: 'new', s: 'Sort options \u2014 A\u2192Z, Z\u2192A, size ascending & descending' },
+                { t: 'new', s: 'Keyboard shortcuts \u2014 / to search, R for random game, arrows for pages' },
+                { t: 'new', s: 'Export / Import \u2014 backup & restore favourites, installed and notes as JSON' },
+                { t: 'fix', s: 'Note modal z-index \u2014 now always renders above the download modal' },
+                { t: 'fix', s: 'List view hover \u2014 cards no longer jump on hover in list mode' },
+                { t: 'fix', s: 'Mobile search bar \u2014 now matches width of the connection boxes row' }
+            ]},
+            { v: '1.4', date: 'Apr 2026', title: 'Queue, History & PWA', items: [
+                { t: 'new', s: 'Download Queue — batch installs and send them to your PS4' },
+                { t: 'new', s: 'Search History — quick-access recent searches from the search bar' },
+                { t: 'new', s: 'Install as App — add PS4 Core to your home screen as a PWA' },
+                { t: 'new', s: 'Changelog — track what has changed across versions' }
+            ]},
+            { v: '1.3', date: 'Apr 2026', title: 'FAQ & Onboarding', items: [
+                { t: 'new', s: 'Multi-step setup guide shown to new users on first visit' },
+                { t: 'new', s: 'Help & FAQ modal with 11 common questions across 3 sections' }
+            ]},
+            { v: '1.2', date: 'Apr 2026', title: 'PS4 Progress Tracking', items: [
+                { t: 'new', s: 'Live download/install progress panel with per-task progress bars' },
+                { t: 'new', s: 'PS4-style toast notifications — top-left, accent bar and icon' }
+            ]},
+            { v: '1.1', date: 'Apr 2026', title: 'Library Features', items: [
+                { t: 'new', s: 'Favourites and Installed tracking with filter pills' },
+                { t: 'new', s: 'Recently Viewed row above the game grid' },
+                { t: 'new', s: 'Animated card parallax tilt and scroll-to-top button' },
+                { t: 'new', s: 'Manual PS4 IP entry in the console picker' }
+            ]},
+            { v: '1.0', date: 'Apr 2026', title: 'Initial Release', items: [
+                { t: 'new', s: 'PS4 game library browser with filters, search and pagination' },
+                { t: 'new', s: 'Real-Debrid link unrestriction and PS4 direct install' },
+                { t: 'new', s: 'Custom theme studio with presets' },
+                { t: 'new', s: 'Automatic PS4 network discovery via WebRTC subnet scan' }
+            ]}
+        ];
+
+        function _render() {
+            var body = document.getElementById('changelog-body');
+            if (!body) return;
+            body.innerHTML = ENTRIES.map(function (e, i) {
+                return '<div class="cl-entry' + (i === 0 ? ' cl-latest' : '') + '">' +
+                    '<div class="cl-entry-header">' +
+                        '<span class="cl-version">v' + e.v + '</span>' +
+                        (i === 0 ? '<span class="cl-new-badge">Latest</span>' : '') +
+                        '<span class="cl-date">' + e.date + '</span>' +
+                    '</div>' +
+                    '<p class="cl-title">' + e.title + '</p>' +
+                    '<ul class="cl-items">' +
+                        e.items.map(function (it) {
+                            var icon = it.t === 'new' ? 'ri-add-circle-fill' : it.t === 'fix' ? 'ri-bug-fill' : 'ri-arrow-up-circle-fill';
+                            return '<li class="cl-item cl-' + it.t + '"><i class="' + icon + '"></i>' + it.s + '</li>';
+                        }).join('') +
+                    '</ul>' +
+                '</div>';
+            }).join('');
+        }
+
+        window.openChangelog = function () {
+            _render();
+            var m = document.getElementById('changelog-modal');
+            if (m) m.style.display = 'flex';
+        };
+        window.closeChangelog = function () {
+            var m = document.getElementById('changelog-modal');
+            if (m) m.style.display = 'none';
+            localStorage.setItem('ps4-cl-version', CL_VERSION);
+            var badge = document.querySelector('.version-badge');
+            if (badge) badge.classList.remove('version-badge-new');
+        };
+
+        document.addEventListener('DOMContentLoaded', function () {
+            if (localStorage.getItem('ps4-cl-version') !== CL_VERSION) {
+                var badge = document.querySelector('.version-badge');
+                if (badge) badge.classList.add('version-badge-new');
+            }
+        });
+    })();
+
+    /* ── Search History ─────────────────────────────────────────────────── */
+    (function () {
+        var MAX = 8;
+        var KEY = 'ps4-search-history';
+
+        function _load() { try { return JSON.parse(localStorage.getItem(KEY) || '[]'); } catch(e) { return []; } }
+        function _save(h) { localStorage.setItem(KEY, JSON.stringify(h)); }
+
+        function _addEntry(q) {
+            if (!q || q.length < 2) return;
+            var h = _load().filter(function(x){ return x !== q; });
+            h.unshift(q);
+            _save(h.slice(0, MAX));
+        }
+
+        function _showDrop() {
+            var h = _load();
+            var drop = document.getElementById('search-history-drop');
+            if (!drop) return;
+            if (h.length === 0) { drop.style.display = 'none'; return; }
+            drop.innerHTML =
+                '<div class="sh-header"><span><i class="ri-history-line"></i> Recent</span>' +
+                '<button onclick="_shClear(event)">Clear</button></div>' +
+                h.map(function(q) {
+                    return '<button class="sh-item" onclick="_shPick(' + JSON.stringify(q) + ',event)">' +
+                        '<i class="ri-search-line"></i><span>' + q + '</span>' +
+                        '<i class="ri-arrow-right-up-line sh-use-icon"></i>' +
+                    '</button>';
+                }).join('');
+            drop.style.display = 'block';
+        }
+
+        window._shPick = function(q, e) {
+            if (e) e.stopPropagation();
+            var inp = document.getElementById('gameSearch');
+            if (inp) { inp.value = q; inp.dispatchEvent(new Event('input', { bubbles: true })); }
+            document.getElementById('search-history-drop').style.display = 'none';
+        };
+        window._shClear = function(e) {
+            if (e) e.stopPropagation();
+            _save([]);
+            document.getElementById('search-history-drop').style.display = 'none';
+        };
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var inp = document.getElementById('gameSearch');
+            if (!inp) return;
+
+            inp.addEventListener('focus', _showDrop);
+            inp.addEventListener('keydown', function(ev) {
+                if (ev.key === 'Enter' && inp.value.trim()) {
+                    _addEntry(inp.value.trim());
+                    document.getElementById('search-history-drop').style.display = 'none';
+                }
+                if (ev.key === 'Escape') {
+                    document.getElementById('search-history-drop').style.display = 'none';
+                }
+            });
+
+            document.addEventListener('click', function(ev) {
+                var drop = document.getElementById('search-history-drop');
+                var wrap = document.getElementById('search-history-drop') && document.getElementById('search-history-drop').parentElement;
+                if (drop && !drop.contains(ev.target) && ev.target !== inp) {
+                    drop.style.display = 'none';
+                }
+            });
+
+            var _saveTimer;
+            inp.addEventListener('input', function() {
+                clearTimeout(_saveTimer);
+                var v = inp.value.trim();
+                if (v.length >= 2) {
+                    _saveTimer = setTimeout(function() { _addEntry(v); }, 1500);
+                }
+            });
+        });
+    })();
+
+    /* ── Download Queue ─────────────────────────────────────────────────── */
+    (function () {
+        var _queue = [];
+        var _sending = false;
+        var _minimised = false;
+
+        function _uid() { return Math.random().toString(36).slice(2); }
+
+        function _render() {
+            var panel  = document.getElementById('queue-panel');
+            var body   = document.getElementById('queue-body');
+            var count  = document.getElementById('queue-count');
+            var footer = document.getElementById('queue-footer');
+            if (!panel || !body) return;
+
+            if (_queue.length === 0) { panel.classList.remove('visible'); return; }
+            panel.classList.add('visible');
+            if (count) count.textContent = _queue.length + ' item' + (_queue.length !== 1 ? 's' : '');
+            if (footer) footer.style.display = _minimised ? 'none' : 'flex';
+
+            body.innerHTML = _queue.map(function(item) {
+                return '<div class="queue-item" data-id="' + item.id + '">' +
+                    '<i class="ri-gamepad-line queue-item-icon"></i>' +
+                    '<div class="queue-item-title">' + item.title + '</div>' +
+                    '<button class="queue-item-remove" onclick="_queueRemove(\'' + item.id + '\')"><i class="ri-close-line"></i></button>' +
+                '</div>';
+            }).join('');
+        }
+
+        window.addToQueue = function(title, link) {
+            _queue.push({ id: _uid(), title: title, link: link });
+            _render();
+            if (typeof showToast === 'function') showToast('Added to queue', 'info', title);
+        };
+
+        window._queueRemove = function(id) {
+            _queue = _queue.filter(function(x) { return x.id !== id; });
+            _render();
+        };
+
+        window.queueSendNext = function() {
+            if (_queue.length === 0) { if (typeof showToast === 'function') showToast('Queue is empty', 'info'); return; }
+            if (_sending) { if (typeof showToast === 'function') showToast('Already sending', 'warning'); return; }
+            var item = _queue.shift();
+            _sending = true;
+            _render();
+            var done = function() { _sending = false; };
+            if (typeof handleInstall === 'function') {
+                var p = handleInstall(item.link);
+                if (p && typeof p.finally === 'function') p.finally(done); else done();
+            } else { done(); }
+        };
+
+        window.queueClear = function() { _queue = []; _render(); };
+
+        window.toggleQueuePanel = function() {
+            var panel  = document.getElementById('queue-panel');
+            var body   = document.getElementById('queue-body');
+            var footer = document.getElementById('queue-footer');
+            var btn    = document.getElementById('queue-min-btn');
+            if (!panel) return;
+            _minimised = !_minimised;
+            panel.classList.toggle('minimised', _minimised);
+            if (body)   body.style.display   = _minimised ? 'none' : '';
+            if (footer) footer.style.display = _minimised ? 'none' : 'flex';
+            if (btn) btn.querySelector('i').className = _minimised ? 'ri-add-line' : 'ri-subtract-line';
+        };
+    })();
+
+    /* ── PWA Install Prompt ─────────────────────────────────────────────── */
+    (function () {
+        var _prompt = null;
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js').catch(function(){});
+        }
+        window.addEventListener('beforeinstallprompt', function(e) {
+            e.preventDefault();
+            _prompt = e;
+            var banner = document.getElementById('pwa-banner');
+            if (banner && !localStorage.getItem('pwa-dismissed')) banner.style.display = 'flex';
+        });
+        window.pwaTriggerInstall = function() {
+            if (!_prompt) return;
+            _prompt.prompt();
+            _prompt.userChoice.then(function() { pwaDismiss(); });
+        };
+        window.pwaDismiss = function() {
+            var banner = document.getElementById('pwa-banner');
+            if (banner) banner.style.display = 'none';
+            localStorage.setItem('pwa-dismissed', '1');
+        };
+    })();
+
+    /* ── Stats Dashboard ────────────────────────────────────────────────── */
+    (function () {
+        window.openStats = function () {
+            var body = document.getElementById('stats-body');
+            if (!body) return;
+            var total  = (window.allGames || []).length;
+            var favs   = Object.keys(JSON.parse(localStorage.getItem('ps4-favs') || '{}')).length;
+            var inst   = Object.keys(JSON.parse(localStorage.getItem('ps4-installed') || '{}')).length;
+            var notes  = Object.keys(JSON.parse(localStorage.getItem('ps4-notes') || '{}')).length;
+
+            var platforms = {};
+            var genres    = {};
+            (window.allGames || []).forEach(function(g) {
+                var p = g.platform || 'Unknown';
+                platforms[p] = (platforms[p] || 0) + 1;
+                var gn = (g.genre || 'Unknown').split('/')[0].trim();
+                genres[gn] = (genres[gn] || 0) + 1;
+            });
+            var topGenres = Object.entries(genres).sort(function(a,b){ return b[1]-a[1]; }).slice(0, 6);
+
+            function statCard(icon, val, label) {
+                return '<div class="stat-card"><i class="' + icon + '"></i><div class="stat-val">' + val + '</div><div class="stat-label">' + label + '</div></div>';
+            }
+            function bar(val, max) {
+                var pct = max ? Math.round(val/max*100) : 0;
+                return '<div class="stat-bar-track"><div class="stat-bar-fill" style="width:' + pct + '%"></div></div>';
+            }
+            body.innerHTML =
+                '<div class="stat-cards">' +
+                    statCard('ri-stack-line', total, 'Total Games') +
+                    statCard('ri-heart-fill', favs, 'Favourites') +
+                    statCard('ri-checkbox-circle-fill', inst, 'Installed') +
+                    statCard('ri-sticky-note-fill', notes, 'Notes') +
+                '</div>' +
+                '<div class="stat-section-title">By Platform</div>' +
+                '<div class="stat-rows">' +
+                    Object.entries(platforms).map(function(e) {
+                        return '<div class="stat-row"><span class="stat-row-label">' + e[0] + '</span>' + bar(e[1], total) + '<span class="stat-row-val">' + e[1] + '</span></div>';
+                    }).join('') +
+                '</div>' +
+                '<div class="stat-section-title">Top Genres</div>' +
+                '<div class="stat-rows">' +
+                    topGenres.map(function(e) {
+                        return '<div class="stat-row"><span class="stat-row-label">' + e[0] + '</span>' + bar(e[1], topGenres[0] ? topGenres[0][1] : 1) + '<span class="stat-row-val">' + e[1] + '</span></div>';
+                    }).join('') +
+                '</div>';
+            document.getElementById('stats-modal').style.display = 'flex';
+        };
+        window.closeStats = function () {
+            var m = document.getElementById('stats-modal');
+            if (m) m.style.display = 'none';
+        };
+    })();
+
+    /* ── Keyboard Shortcuts ─────────────────────────────────────────────── */
+    (function () {
+        var MODALS = ['download-modal','themes-modal','changelog-modal','faq-modal','stats-modal','note-modal','exim-modal','ps4-modal','rd-help-modal','import-code-modal'];
+        // Features popup uses a backdrop — close it on Escape separately
+        document.addEventListener('keydown', function(ev) {
+            if (ev.key === 'Escape' && document.getElementById('feat-backdrop')) closeFeaturesSection();
+        });
+        document.addEventListener('keydown', function (e) {
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT') return;
+            if (e.key === '/' || e.key === 's') {
+                e.preventDefault();
+                var inp = document.getElementById('gameSearch');
+                if (inp) { inp.focus(); inp.select(); }
+            }
+            if (e.key === 'Escape') {
+                MODALS.forEach(function(id) {
+                    var m = document.getElementById(id);
+                    if (m && m.style.display !== 'none') m.style.display = 'none';
+                });
+                if (typeof exitSelectMode === 'function') exitSelectMode();
+            }
+            if (e.key === 'ArrowLeft' || e.key === ',') {
+                var prev = document.getElementById('page-prev');
+                if (prev && !prev.disabled) prev.click();
+            }
+            if (e.key === 'ArrowRight' || e.key === '.') {
+                var next = document.getElementById('page-next');
+                if (next && !next.disabled) next.click();
+            }
+            if (e.key === 'r' && !e.ctrlKey && !e.metaKey) {
+                if (typeof surpriseMe === 'function') surpriseMe();
+            }
+        });
+    })();
+
+    /* ── Browser Notifications ──────────────────────────────────────────── */
+    (function () {
+        window._fireNotif = function (title, body) {
+            if (!('Notification' in window) || Notification.permission !== 'granted') return;
+            new Notification(title, { body: body, icon: '/favicon.ico' });
+        };
+        document.addEventListener('DOMContentLoaded', function () {
+            if (!localStorage.getItem('notif-perm-asked') && 'Notification' in window && Notification.permission === 'default') {
+                setTimeout(function() {
+                    localStorage.setItem('notif-perm-asked', '1');
+                    Notification.requestPermission();
+                }, 5000);
+            }
+        });
+    })();
+
+    /* ── View Persistence ───────────────────────────────────────────────── */
+    (function () {
+        document.addEventListener('DOMContentLoaded', function () {
+            var saved = localStorage.getItem('ps4-view');
+            if (saved === 'list' && typeof toggleView === 'function') toggleView('list');
+        });
+    })();
+
+    /* ── Onboarding ─────────────────────────────────────────────────────── */
+    (function () {
+        var _el    = function(id) { return document.getElementById(id); };
+        var _steps = function() { return document.querySelectorAll('.ob-step'); };
+        var TOTAL  = 5;
+        var _cur   = 1;
+
+        function _buildDots() {
+            var dots = _el('ob-dots');
+            if (!dots) return;
+            dots.innerHTML = '';
+            for (var i = 1; i <= TOTAL; i++) {
+                var d = document.createElement('button');
+                d.className = 'ob-dot' + (i === _cur ? ' active' : '');
+                d.setAttribute('data-n', i);
+                d.onclick = (function(n){ return function(){ _goTo(n); }; })(i);
+                dots.appendChild(d);
+            }
+        }
+
+        function _goTo(n) {
+            _steps().forEach(function (s) { s.classList.remove('active'); });
+            var target = document.querySelector('.ob-step[data-step="' + n + '"]');
+            if (target) target.classList.add('active');
+            _cur = n;
+            _buildDots();
+            var skip = _el('ob-skip');
+            var prev = _el('ob-prev');
+            var next = _el('ob-next');
+            if (prev) prev.style.display = n > 1 ? 'inline-flex' : 'none';
+            if (skip) skip.style.display = n < TOTAL ? 'inline-flex' : 'none';
+            if (next) {
+                if (n === TOTAL) {
+                    next.innerHTML = 'Get Started <i class="ri-rocket-line"></i>';
+                    next.classList.add('ob-btn-finish');
+                } else {
+                    next.innerHTML = 'Next <i class="ri-arrow-right-line"></i>';
+                    next.classList.remove('ob-btn-finish');
+                }
+            }
+        }
+
+        window._obNext = function () { if (_cur < TOTAL) { _goTo(_cur + 1); } else { _obSkip(); } };
+        window._obPrev = function () { if (_cur > 1) _goTo(_cur - 1); };
+        window._obSkip = function () {
+            localStorage.setItem('ps4-onboarded', '1');
+            var ov = _el('onboarding-overlay');
+            if (ov) { ov.classList.add('ob-exit'); setTimeout(function () { ov.style.display = 'none'; }, 450); }
+        };
+
+        document.addEventListener('DOMContentLoaded', function () {
+            if (localStorage.getItem('ps4-onboarded')) return;
+            var ov = _el('onboarding-overlay');
+            if (ov) { ov.style.display = 'flex'; }
+            _goTo(1);
+        });
+    })();
+    </script>
+
+    <!-- ── PS4 Downloads Progress Panel ───────────────────────────────────── -->
+    <div id="ps4-dl-panel" style="display:none;">
+        <div class="psdl-header">
+            <span class="psdl-title"><i class="ri-download-2-line"></i> PS4 Downloads</span>
+            <button class="psdl-toggle" id="psdl-toggle-btn" onclick="togglePsDlPanel()" title="Minimise"><i class="ri-subtract-line"></i></button>
+        </div>
+        <div id="psdl-body" class="psdl-body"></div>
+    </div>
+</body>
+</html>
