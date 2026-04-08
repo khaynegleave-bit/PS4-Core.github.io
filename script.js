@@ -270,7 +270,7 @@ async function validateRdToken(token) {
 
     try {
 
-        const res = await fetch(`/api/rd/user?auth_token=${encodeURIComponent(token)}`);
+        const res = await fetch(`https://clinquant-queijadas-57cd07.netlify.app/api/rd/user?auth_token=${encodeURIComponent(token)}`);
 
         setRdBoxState(res.ok ? 'valid' : 'invalid');
 

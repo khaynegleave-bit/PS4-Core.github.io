@@ -655,9 +655,7 @@
         if (!token) { setRdBoxState('idle'); return; }
         setRdBoxState('idle');
         try {
-            const res = await fetch('https://api.real-debrid.com/rest/1.0/user', {
-                headers: { 'Authorization': 'Bearer ' + token }
-            });
+            const res = await fetch('https://clinquant-queijadas-57cd07.netlify.app/api/rd/user?auth_token=' + encodeURIComponent(token));
             setRdBoxState(res.ok ? 'valid' : 'invalid');
         } catch {
             setRdBoxState('idle');
