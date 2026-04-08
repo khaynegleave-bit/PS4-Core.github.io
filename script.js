@@ -270,7 +270,9 @@ async function validateRdToken(token) {
 
     try {
 
-        const res = await fetch(`https://api.real-debrid.com/rest/1.0/user?auth_token=${encodeURIComponent(token)}`);
+        const res = await fetch('https://api.real-debrid.com/rest/1.0/user', {
+            headers: { 'Authorization': `Bearer ${token}` }
+        });
 
         setRdBoxState(res.ok ? 'valid' : 'invalid');
 
