@@ -8,6 +8,8 @@
 
 const GITHUB_URL = './games.json';
 
+const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+
 function toggleInputVisibility(id, btn) {
 
     const input = document.getElementById(id);
@@ -62,7 +64,7 @@ function initConnectionManager() {
 
         ipInput.value = savedIp;
 
-        startHeartbeat(savedIp);
+        if (!isIOS) startHeartbeat(savedIp);
 
     }
 
@@ -148,7 +150,7 @@ function initConnectionManager() {
 
         connectionBox.style.boxShadow = '';
 
-        connectionTimeout = setTimeout(() => {
+        if (!isIOS) connectionTimeout = setTimeout(() => {
 
             startHeartbeat(ip);
 
@@ -180,7 +182,7 @@ function initConnectionManager() {
 
             connectionBox.style.boxShadow = '';
 
-            startHeartbeat(ip);
+            if (!isIOS) startHeartbeat(ip);
 
         } else {
 
@@ -214,7 +216,7 @@ function initConnectionManager() {
 
             connectionBox.style.boxShadow = '';
 
-            startHeartbeat(ip);
+            if (!isIOS) startHeartbeat(ip);
 
         } else {
 

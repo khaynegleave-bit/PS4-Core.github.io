@@ -675,9 +675,10 @@
         var ip = document.getElementById('ps4-ip').value.trim();
         if (!ip) return;
         localStorage.setItem('ps4-last-ip', ip);
-        clearTimeout(window._connTimeout);
-        clearInterval(window._heartbeat);
-        if (typeof startHeartbeat === 'function') startHeartbeat(ip);
+        clearTimeout(connectionTimeout);
+        clearInterval(heartbeatInterval);
+        if (typeof checkPS4Status === 'function') checkPS4Status(ip);
+        if (!isIOS && typeof startHeartbeat === 'function') startHeartbeat(ip);
     };
 
     function openFeaturesSection() {
