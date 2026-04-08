@@ -677,8 +677,8 @@
         localStorage.setItem('ps4-last-ip', ip);
         clearTimeout(connectionTimeout);
         clearInterval(heartbeatInterval);
-        if (typeof checkPS4Status === 'function') checkPS4Status(ip);
-        if (!isIOS && typeof startHeartbeat === 'function') startHeartbeat(ip);
+        if (!isHTTPS && typeof checkPS4Status === 'function') checkPS4Status(ip);
+        if (!isHTTPS && typeof startHeartbeat === 'function') startHeartbeat(ip);
     };
 
     function openFeaturesSection() {

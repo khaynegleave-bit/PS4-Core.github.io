@@ -68,12 +68,9 @@ function initConnectionManager() {
 
     }
 
-
-
     const rdInput = document.getElementById('rd-token');
 
     if (rdInput) {
-
         const savedToken = localStorage.getItem('rd-api-token');
 
         if (savedToken) {
@@ -142,23 +139,23 @@ function initConnectionManager() {
 
         }
 
-
-
         connectionBox.className = 'connection-box waiting';
 
         connectionBox.style.borderColor = '';
 
         connectionBox.style.boxShadow = '';
 
-        if (!isIOS) connectionTimeout = setTimeout(() => {
+        if (!isIOS) {
 
-            startHeartbeat(ip);
+            connectionTimeout = setTimeout(() => {
 
-        }, 1200);
+                startHeartbeat(ip);
+
+            }, 1200);
+
+        }
 
     });
-
-
 
     ipInput.addEventListener('keydown', (e) => {
 
@@ -335,7 +332,7 @@ async function checkPS4Status(ip) {
     } catch (err) {
 
         // Network error or timeout means the port is unreachable.
-
+        console.log(err);
         connectionBox.className = 'connection-box failed';
 
         connectionBox.style.borderColor = '#ff3c3c';
