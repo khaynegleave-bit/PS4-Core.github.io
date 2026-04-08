@@ -1,14 +1,8 @@
 /**
-
  * PS4 Core - Professional Remote Manager (500-Error-Tolerant Build)
-
  */
 
-
-
 const GITHUB_URL = './games.json';
-
-const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
 
 function toggleInputVisibility(id, btn) {
 
@@ -64,7 +58,7 @@ function initConnectionManager() {
 
         ipInput.value = savedIp;
 
-        if (!isIOS) startHeartbeat(savedIp);
+        startHeartbeat(savedIp);
 
     }
 
@@ -145,15 +139,11 @@ function initConnectionManager() {
 
         connectionBox.style.boxShadow = '';
 
-        if (!isIOS) {
+        connectionTimeout = setTimeout(() => {
 
-            connectionTimeout = setTimeout(() => {
+            startHeartbeat(ip);
 
-                startHeartbeat(ip);
-
-            }, 1200);
-
-        }
+        }, 1200);
 
     });
 
@@ -179,7 +169,7 @@ function initConnectionManager() {
 
             connectionBox.style.boxShadow = '';
 
-            if (!isIOS) startHeartbeat(ip);
+            startHeartbeat(ip);
 
         } else {
 
@@ -213,7 +203,7 @@ function initConnectionManager() {
 
             connectionBox.style.boxShadow = '';
 
-            if (!isIOS) startHeartbeat(ip);
+            startHeartbeat(ip);
 
         } else {
 
@@ -332,7 +322,7 @@ async function checkPS4Status(ip) {
     } catch (err) {
 
         // Network error or timeout means the port is unreachable.
-        console.log(err);
+
         connectionBox.className = 'connection-box failed';
 
         connectionBox.style.borderColor = '#ff3c3c';

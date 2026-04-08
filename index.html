@@ -535,7 +535,6 @@
                     <div class="status-indicator"></div>
                     <i class="ri-wifi-line"></i>
                     <input type="text" id="ps4-ip" placeholder="PS4 IP Address" autocomplete="off">
-                    <button class="rd-help-btn" id="ps4-check-btn" onclick="manualCheckPS4()" tabindex="-1" title="Check connection"><i class="ri-refresh-line"></i></button>
                 </div>
             </div>
         </nav>
@@ -669,16 +668,6 @@
         } catch {
             setRdBoxState('idle');
         }
-    };
-
-    window.manualCheckPS4 = function () {
-        var ip = document.getElementById('ps4-ip').value.trim();
-        if (!ip) return;
-        localStorage.setItem('ps4-last-ip', ip);
-        clearTimeout(connectionTimeout);
-        clearInterval(heartbeatInterval);
-        if (!isHTTPS && typeof checkPS4Status === 'function') checkPS4Status(ip);
-        if (!isHTTPS && typeof startHeartbeat === 'function') startHeartbeat(ip);
     };
 
     function openFeaturesSection() {
